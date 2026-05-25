@@ -1,132 +1,152 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Smart Resume Builder</title>
+  <title>Register</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f7fa;
-    }
-
-    /* Top welcome section */
-    .hero {
-      height: 60vh;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      color: white;
-      flex-direction: column;
+      margin: 0;
     }
 
-    .hero h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
+    .welcome {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  font-family: Arial, sans-serif;
+}
 
-    .hero p {
-      font-size: 18px;
-      max-width: 500px;
-    }
-
-    .hero button {
-      margin-top: 20px;
-      padding: 12px 25px;
-      border: none;
+    .container {
       background: white;
-      color: #4facfe;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .hero button:hover {
-      background: #e6f2ff;
-    }
-
-    /* Features section */
-    .features {
-      padding: 40px;
-      text-align: center;
-    }
-
-    .features h2 {
-      margin-bottom: 30px;
-    }
-
-    .feature-box {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      margin: 10px;
-      width: 250px;
+      padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    .card h3 {
-      margin-bottom: 10px;
-    }
-
-    /* Footer */
-    footer {
-      background: #333;
-      color: white;
+    h2 {
       text-align: center;
-      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #4facfe;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4facfe;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #00c6ff;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .login-link a {
+      text-decoration: none;
+      color: #4facfe;
     }
   </style>
 </head>
 <body>
+  <h1 class="welcome">✨Welcome to my Website✨</h1>
 
-<!-- Top Welcome Section -->
-<div class="hero">
-  <h1>Welcome to Smart Resume Builder</h1>
-  <p>Create professional resumes in minutes with smart suggestions and beautiful templates.</p>
-  <button onclick="start()"  type="button" id="homepageBtn" class="btn"a href="./resumebuilder0.html">Get Started</button>
-</div>
+<div class="container">
+  <h2>Register</h2>
+  <form id="registerForm">
+    
+    <div class="input-group">
+      <label>Name</label>
+      <input type="text" name="name" required>
+    </div>
 
-<!-- Features -->
-<div class="features">
-  <h2>Features</h2>
-  <div class="feature-box">
-    <div class="card">
-      <h3>Easy to Use</h3>
-      <p>Simple interface to build your resume quickly.</p>
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" name="email" required>
     </div>
-    <div class="card">
-      <h3>Smart Suggestions</h3>
-      <p>Get AI-based tips to improve your resume.</p>
-    </div>
-    <div class="card">
-      <h3>Download PDF</h3>
-      <p>Export your resume in professional formats.</p>
-    </div>
-  </div>
-</div>
 
-<!-- Footer -->
-<footer>
-  <p>© 2026 Smart Resume Builder</p>
-</footer>
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" name="password" required>
+    </div>
+
+     <button type="submit" id="registerBtn" class="btn">Register</button>
+
+  </form>
+  <div class="redirect-link">
+        Already have an account? <a href="login.html">Login</a>
+    </div>
 
 <script>
-  function start() {
+  document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-  }
-document.getElementById('homepageBtn').addEventListener('click', function() {
+    const formData = {
+      name: this.name.value,
+      email: this.email.value,
+      password: this.password.value
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+      alert("User registered successfully!");
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+      alert("Error registering user");
+    }
+  });
+  document.getElementById('registerBtn').addEventListener('click', function() {
         // Redirect to login page after clicking register
-        window.location.href = "./resumebuilder0.html"; // Replace with the actual login page URL
-});
+        window.location.href = "login.html"; // Replace with the actual login page URL
+    });
 </script>
-
 </body>
-</html> 
+</html>  
