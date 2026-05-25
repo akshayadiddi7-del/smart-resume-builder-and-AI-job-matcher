@@ -1,36 +1,50 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- Responsive Meta Tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Register</title>
+
   <style>
+
+    *{
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: linear-gradient(to right, #4facfe, #00f2fe);
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
+      padding: 20px;
+      position: relative;
     }
 
     .welcome {
-  position: absolute;
-  top: 20px;
-  width: 100%;
-  text-align: center;
-  font-size: 28px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-  font-family: Arial, sans-serif;
-}
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      font-family: Arial, sans-serif;
+      padding: 0 10px;
+    }
 
     .container {
       background: white;
       padding: 30px;
       border-radius: 10px;
-      width: 350px;
+      width: 90%;
+      max-width: 350px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
@@ -55,6 +69,7 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       outline: none;
+      font-size: 16px;
     }
 
     input:focus {
@@ -76,48 +91,111 @@
       background: #00c6ff;
     }
 
-    .login-link {
+    .login-link,
+    .redirect-link {
       text-align: center;
       margin-top: 10px;
     }
 
-    .login-link a {
+    .login-link a,
+    .redirect-link a {
       text-decoration: none;
       color: #4facfe;
     }
+
+    /* Responsive Design */
+
+    @media screen and (max-width: 768px){
+
+      .welcome{
+        font-size: 22px;
+      }
+
+      .container{
+        width: 100%;
+        padding: 20px;
+      }
+
+      h2{
+        font-size: 24px;
+      }
+
+      input{
+        padding: 12px;
+      }
+
+      button{
+        padding: 12px;
+      }
+
+    }
+@media screen and (max-width: 768px){
+
+  body{
+    padding: 15px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .welcome{
+    font-size: 22px;
+    top: 15px;
+    padding: 0 10px;
+  }
+
+  .container{
+    width: 100%;
+    max-width: 350px;
+    padding: 20px;
+    margin-top: 80px;
+  }
+
+}
   </style>
 </head>
+
 <body>
+
   <h1 class="welcome">✨Welcome to my Website✨</h1>
 
-<div class="container">
-  <h2>Register</h2>
-  <form id="registerForm">
-    
-    <div class="input-group">
-      <label>Name</label>
-      <input type="text" name="name" required>
+  <div class="container">
+
+    <h2>Register</h2>
+
+    <form id="registerForm">
+
+      <div class="input-group">
+        <label>Name</label>
+        <input type="text" name="name" required>
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" required>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
+
+      <button type="submit" id="registerBtn" class="btn">
+        Register
+      </button>
+
+    </form>
+
+    <div class="redirect-link">
+      Already have an account?
+      <a href="login.html">Login</a>
     </div>
 
-    <div class="input-group">
-      <label>Email</label>
-      <input type="email" name="email" required>
-    </div>
-
-    <div class="input-group">
-      <label>Password</label>
-      <input type="password" name="password" required>
-    </div>
-
-     <button type="submit" id="registerBtn" class="btn">Register</button>
-
-  </form>
-  <div class="redirect-link">
-        Already have an account? <a href="login.html">Login</a>
-    </div>
+  </div>
 
 <script>
+
   document.getElementById("registerForm").addEventListener("submit", async function(e) {
+
     e.preventDefault();
 
     const formData = {
@@ -127,6 +205,7 @@
     };
 
     try {
+
       const res = await fetch("http://localhost:3000/api/user", {
         method: "POST",
         headers: {
@@ -136,17 +215,29 @@
       });
 
       const data = await res.json();
+
       alert("User registered successfully!");
+
       console.log(data);
+
     } catch (err) {
+
       console.error(err);
+
       alert("Error registering user");
+
     }
+
   });
+
   document.getElementById('registerBtn').addEventListener('click', function() {
-        // Redirect to login page after clicking register
-        window.location.href = "login.html"; // Replace with the actual login page URL
-    });
+
+    // Redirect to login page after clicking register
+    window.location.href = "login.html";
+
+  });
+
 </script>
+
 </body>
-</html>  
+</html>

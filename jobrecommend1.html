@@ -1,117 +1,200 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Job Matcher</title>
 
-  <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+<meta charset="UTF-8">
+
+<!-- Responsive Meta Tag -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Job Matcher</title>
+
+<style>
+
+*{
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 15px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 38px;
+}
+
+.box {
+  background: white;
+  padding: 25px;
+  margin: 15px 0;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 22px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  padding: 12px;
+  background: #4facfe;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00c6ff;
+}
+
+.skill {
+  display: inline-block;
+  padding: 8px 14px;
+  margin: 5px;
+  background: #e6f7ff;
+  color: #0077b6;
+  border-radius: 20px;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.job {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-top: 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.job:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.job h4 {
+  margin: 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.company {
+  color: #555;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.match {
+  margin: 8px 0;
+  font-weight: bold;
+  color: #00a86b;
+}
+
+.apply-btn {
+  width: auto;
+  margin-top: 8px;
+  background: #4facfe;
+}
+
+.apply-btn:hover {
+  background: #00c6ff;
+}
+
+/* Responsive Design */
+
+@media screen and (max-width: 768px){
+
+  body{
+    padding: 10px;
   }
 
-  .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+  h1{
+    font-size: 28px;
   }
 
-  h1 {
-    text-align: center;
-    color: white;
-    margin-bottom: 20px;
+  .box{
+    padding: 18px;
   }
 
-  .box {
-    background: white;
-    padding: 25px;
-    margin: 15px 0;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  h3{
+    font-size: 20px;
   }
 
-  h3 {
-    margin-top: 0;
-    color: #333;
+  input,
+  textarea{
+    font-size: 16px;
+    padding: 12px;
   }
 
-  input, textarea {
+  button{
     width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    font-size: 16px;
+    padding: 12px;
   }
 
-  textarea {
-    height: 120px;
+  .apply-btn{
+    width: 100%;
   }
 
-  button {
-    padding: 10px;
-    background: #4facfe;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: 0.3s;
+  .job h4{
+    font-size: 18px;
   }
 
-  button:hover {
-    background: #00c6ff;
+  .skill{
+    font-size: 13px;
+    padding: 7px 12px;
   }
 
-  .skill {
-    display: inline-block;
-    padding: 6px 12px;
-    margin: 5px;
-    background: #e6f7ff;
-    color: #0077b6;
-    border-radius: 20px;
-    font-size: 14px;
-  }
+}
+@media screen and (max-width:768px){
 
-  .job {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-top: 12px;
-    border-radius: 8px;
-    transition: 0.3s;
-  }
+.container{
+  padding: 5px;
+}
 
-  .job:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  }
+.box{
+  padding: 15px;
+}
 
-  .job h4 {
-    margin: 0;
-    color: #333;
-  }
+button{
+  width: 100%;
+}
 
-  .company {
-    color: #555;
-    font-size: 14px;
-  }
-
-  .match {
-    margin: 5px 0;
-    font-weight: bold;
-    color: #00a86b;
-  }
-
-  .apply-btn {
-    width: auto;
-    margin-top: 8px;
-    background: #4facfe;
-  }
-
-  .apply-btn:hover {
-    background: #00c6ff;
-  }
+}
 
 </style>
+
 </head>
 
 <body>
@@ -121,24 +204,35 @@
 <h1>💼 AI Job Matcher</h1>
 
 <div class="box">
+
   <h3>Upload Resume (.txt)</h3>
+
   <input type="file" id="fileInput">
-  
+
   <h3>OR Paste Resume</h3>
+
   <textarea id="resumeText" placeholder="Paste resume text here..."></textarea>
-  
+
   <br><br>
+
   <button onclick="processResume()">Analyze Resume</button>
+
 </div>
 
 <div class="box">
+
   <h3>🧠 Extracted Skills</h3>
+
   <div id="skills"></div>
+
 </div>
 
 <div class="box">
+
   <h3>🚀 Recommended Jobs</h3>
+
   <div id="jobs"></div>
+
 </div>
 
 </div>
@@ -146,6 +240,7 @@
 <script>
 
 // Expanded skills database
+
 const skillsDB = [
   "python","java","javascript","react","node","sql","machine learning",
   "django","flask","aws","html","css","data science","mongodb",
@@ -153,6 +248,7 @@ const skillsDB = [
 ];
 
 // Better job roles mapping
+
 const jobsDB = [
   {
     title:"Python Developer",
@@ -187,30 +283,39 @@ const jobsDB = [
 ];
 
 // Clean & normalize text
+
 function cleanText(text) {
+
   return text
     .toLowerCase()
     .replace(/[^a-z0-9+#.\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+
 }
 
 // Extract skills properly
+
 function extractSkills(text) {
+
   text = cleanText(text);
 
   let found = skillsDB.filter(skill =>
     text.includes(skill.toLowerCase())
   );
 
-  return [...new Set(found)]; // remove duplicates
+  return [...new Set(found)];
+
 }
 
 // Match jobs dynamically
+
 function matchJobs(userSkills) {
+
   if (userSkills.length === 0) return [];
 
   return jobsDB.map(job => {
+
     let matchCount = job.skills.filter(skill =>
       userSkills.includes(skill)
     ).length;
@@ -221,107 +326,144 @@ function matchJobs(userSkills) {
       ...job,
       score
     };
+
   })
   .filter(job => job.score > 0)
   .sort((a,b) => b.score - a.score);
+
 }
 
 // Display skills
+
 function displaySkills(skills) {
+
   const div = document.getElementById("skills");
+
   div.innerHTML = "";
 
   if (skills.length === 0) {
+
     div.innerHTML = "<p>No skills detected</p>";
+
     return;
+
   }
 
   skills.forEach(s => {
+
     div.innerHTML += `<span class="skill">${s}</span>`;
+
   });
+
 }
 
 // Display jobs dynamically
+
 function displayJobs(jobs) {
+
   const div = document.getElementById("jobs");
+
   div.innerHTML = "";
 
   if (jobs.length === 0) {
+
     div.innerHTML = "<p>No matching jobs found</p>";
+
     return;
+
   }
 
   jobs.forEach(job => {
+
     div.innerHTML += `
       <div class="job">
+
         <h4>${job.title}</h4>
+
         <div class="company">${job.company}</div>
+
         <div class="match">Match: ${job.score}%</div>
 
         <a href="${job.link}" target="_blank">
+
           <button class="apply-btn">Apply Now</button>
+
         </a>
 
       </div>
     `;
-  });
-}
-  jobs.forEach(job => {
-    div.innerHTML += `
-      <div class="job">
-        <h4>${job.title}</h4>
-        <div class="company">${job.company}</div>
-        <div class="match">Match: ${job.score}%</div>
-        <button class="apply-btn">Apply (Demo)</button>
-      </div>
-    `;
+
   });
 
+}
 
 // File + Text handler
+
 function processResume() {
+
   const fileInput = document.getElementById("fileInput");
+
   const textArea = document.getElementById("resumeText");
 
   if (fileInput.files.length > 0) {
+
     const file = fileInput.files[0];
 
     if (file.type !== "text/plain") {
+
       alert("Please upload only .txt file");
+
       return;
+
     }
 
     const reader = new FileReader();
 
     reader.onload = function(e) {
+
       runPipeline(e.target.result);
+
     };
 
     reader.onerror = function() {
+
       alert("Error reading file");
+
     };
 
     reader.readAsText(file);
 
   } else {
+
     runPipeline(textArea.value);
+
   }
+
 }
 
 // Main pipeline
+
 function runPipeline(text) {
+
   if (!text || text.trim() === "") {
+
     alert("Please upload or paste resume");
+
     return;
+
   }
 
   const skills = extractSkills(text);
+
   displaySkills(skills);
 
   const jobs = matchJobs(skills);
+
   displayJobs(jobs);
+
 }
 
 </script>
+
 </body>
-</html> 
+</html>

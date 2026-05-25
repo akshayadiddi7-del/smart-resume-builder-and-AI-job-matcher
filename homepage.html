@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
+
+  <!-- Responsive Meta Tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Smart Resume Builder</title>
+
   <style>
+
+    *{
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -11,8 +22,9 @@
     }
 
     /* Top welcome section */
+
     .hero {
-      height: 60vh;
+      min-height: 60vh;
       background: linear-gradient(135deg, #4facfe, #00f2fe);
       display: flex;
       justify-content: center;
@@ -20,6 +32,7 @@
       text-align: center;
       color: white;
       flex-direction: column;
+      padding: 40px 20px;
     }
 
     .hero h1 {
@@ -30,6 +43,7 @@
     .hero p {
       font-size: 18px;
       max-width: 500px;
+      line-height: 1.6;
     }
 
     .hero button {
@@ -41,92 +55,201 @@
       border-radius: 25px;
       font-size: 16px;
       cursor: pointer;
+      transition: 0.3s;
     }
 
     .hero button:hover {
       background: #e6f2ff;
+      transform: scale(1.05);
     }
 
     /* Features section */
+
     .features {
-      padding: 40px;
+      padding: 50px 20px;
       text-align: center;
     }
 
     .features h2 {
       margin-bottom: 30px;
+      font-size: 32px;
     }
 
     .feature-box {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       flex-wrap: wrap;
+      gap: 20px;
     }
 
     .card {
       background: white;
-      padding: 20px;
-      margin: 10px;
-      width: 250px;
-      border-radius: 10px;
+      padding: 25px;
+      width: 280px;
+      border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover{
+      transform: translateY(-5px);
     }
 
     .card h3 {
       margin-bottom: 10px;
+      color: #333;
+    }
+
+    .card p{
+      color: #666;
+      line-height: 1.5;
     }
 
     /* Footer */
+
     footer {
       background: #333;
       color: white;
       text-align: center;
       padding: 15px;
+      font-size: 15px;
     }
+
+    /* Responsive Design */
+
+    @media screen and (max-width: 768px){
+
+      .hero{
+  min-height: 100vh;
+  padding: 20px;
+}
+      .hero h1{
+        font-size: 30px;
+      }
+
+      .hero p{
+        font-size: 16px;
+      }
+
+      .hero button{
+        width: 100%;
+        max-width: 250px;
+      }
+
+      .features{
+        padding: 40px 15px;
+      }
+
+      .features h2{
+        font-size: 28px;
+      }
+
+      .feature-box{
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card{
+        width: 100%;
+        max-width: 320px;
+      }
+
+    }
+@media screen and (max-width:768px){
+
+.hero h1{
+  font-size: 32px;
+}
+
+.hero p{
+  font-size: 16px;
+}
+
+.feature-box{
+  flex-direction: column;
+  align-items: center;
+}
+
+.card{
+  width: 90%;
+}
+
+}
   </style>
+
 </head>
+
 <body>
 
 <!-- Top Welcome Section -->
+
 <div class="hero">
+
   <h1>Welcome to Smart Resume Builder</h1>
-  <p>Create professional resumes in minutes with smart suggestions and beautiful templates.</p>
-  <button onclick="start()"  type="button" id="homepageBtn" class="btn"a href="./resumebuilder0.html">Get Started</button>
+
+  <p>
+    Create professional resumes in minutes with smart suggestions and beautiful templates.
+  </p>
+
+  <button onclick="start()" type="button" id="homepageBtn" class="btn">
+    Get Started
+  </button>
+
 </div>
 
 <!-- Features -->
+
 <div class="features">
+
   <h2>Features</h2>
+
   <div class="feature-box">
+
     <div class="card">
       <h3>Easy to Use</h3>
-      <p>Simple interface to build your resume quickly.</p>
+      <p>
+        Simple interface to build your resume quickly.
+      </p>
     </div>
+
     <div class="card">
       <h3>Smart Suggestions</h3>
-      <p>Get AI-based tips to improve your resume.</p>
+      <p>
+        Get AI-based tips to improve your resume.
+      </p>
     </div>
+
     <div class="card">
       <h3>Download PDF</h3>
-      <p>Export your resume in professional formats.</p>
+      <p>
+        Export your resume in professional formats.
+      </p>
     </div>
+
   </div>
+
 </div>
 
 <!-- Footer -->
+
 <footer>
   <p>© 2026 Smart Resume Builder</p>
 </footer>
 
 <script>
+
   function start() {
 
   }
-document.getElementById('homepageBtn').addEventListener('click', function() {
-        // Redirect to login page after clicking register
-        window.location.href = "./resumebuilder0.html"; // Replace with the actual login page URL
-});
+
+  document.getElementById('homepageBtn').addEventListener('click', function() {
+
+    // Redirect to Resume Builder page
+    window.location.href = "./resumebuilder0.html";
+
+  });
+
 </script>
 
 </body>
-</html> 
+</html>
