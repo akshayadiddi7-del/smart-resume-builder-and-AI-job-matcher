@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Job Matcher</title>
+
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .box {
+    background: white;
+    padding: 25px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  h3 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  textarea {
+    height: 120px;
+  }
+
+  button {
+    padding: 10px;
+    background: #4facfe;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #00c6ff;
+  }
+
+  .skill {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 5px;
+    background: #e6f7ff;
+    color: #0077b6;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+
+  .job {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .job:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .job h4 {
+    margin: 0;
+    color: #333;
+  }
+
+  .company {
+    color: #555;
+    font-size: 14px;
+  }
+
+  .match {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #00a86b;
+  }
+
+  .apply-btn {
+    width: auto;
+    margin-top: 8px;
+    background: #4facfe;
+  }
+
+  .apply-btn:hover {
+    background: #00c6ff;
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💼 AI Job Matcher</h1>
+
+<div class="box">
+  <h3>Upload Resume (.txt)</h3>
+  <input type="file" id="fileInput">
+  
+  <h3>OR Paste Resume</h3>
+  <textarea id="resumeText" placeholder="Paste resume text here..."></textarea>
+  
+  <br><br>
+  <button onclick="processResume()">Analyze Resume</button>
+</div>
+
+<div class="box">
+  <h3>🧠 Extracted Skills</h3>
+  <div id="skills"></div>
+</div>
+
+<div class="box">
+  <h3>🚀 Recommended Jobs</h3>
+  <div id="jobs"></div>
+</div>
+
+</div>
+
+<script>
+
+// Expanded skills database
+const skillsDB = [
+  "python","java","javascript","react","node","sql","machine learning",
+  "django","flask","aws","html","css","data science","mongodb",
+  "express","c++","c","typescript","angular"
+];
+
+// Better job roles mapping
+const jobsDB = [
+  {
+    title:"Python Developer",
+    company:"Tech Solutions",
+    skills:["python","django","flask"],
+    link:"https://www.indeed.com/jobs?q=python+developer"
+  },
+  {
+    title:"Frontend Developer",
+    company:"Creative Studio",
+    skills:["html","css","javascript","react"],
+    link:"https://www.linkedin.com/jobs/search/?keywords=frontend%20developer"
+  },
+  {
+    title:"Backend Developer",
+    company:"ServerSide Inc",
+    skills:["node","sql","mongodb","express"],
+    link:"https://www.naukri.com/backend-developer-jobs"
+  },
+  {
+    title:"ML Engineer",
+    company:"AI Labs",
+    skills:["python","machine learning","data science"],
+    link:"https://www.glassdoor.com/Job/ml-engineer-jobs"
+  },
+  {
+    title:"Full Stack Developer",
+    company:"Startup Hub",
+    skills:["react","node","sql","javascript"],
+    link:"https://www.indeed.com/jobs?q=full+stack+developer"
+  }
+];
+
+// Clean & normalize text
+function cleanText(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9+#.\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Extract skills properly
+function extractSkills(text) {
+  text = cleanText(text);
+
+  let found = skillsDB.filter(skill =>
+    text.includes(skill.toLowerCase())
+  );
+
+  return [...new Set(found)]; // remove duplicates
+}
+
+// Match jobs dynamically
+function matchJobs(userSkills) {
+  if (userSkills.length === 0) return [];
+
+  return jobsDB.map(job => {
+    let matchCount = job.skills.filter(skill =>
+      userSkills.includes(skill)
+    ).length;
+
+    let score = ((matchCount / job.skills.length) * 100).toFixed(1);
+
+    return {
+      ...job,
+      score
+    };
+  })
+  .filter(job => job.score > 0)
+  .sort((a,b) => b.score - a.score);
+}
+
+// Display skills
+function displaySkills(skills) {
+  const div = document.getElementById("skills");
+  div.innerHTML = "";
+
+  if (skills.length === 0) {
+    div.innerHTML = "<p>No skills detected</p>";
+    return;
+  }
+
+  skills.forEach(s => {
+    div.innerHTML += `<span class="skill">${s}</span>`;
+  });
+}
+
+// Display jobs dynamically
+function displayJobs(jobs) {
+  const div = document.getElementById("jobs");
+  div.innerHTML = "";
+
+  if (jobs.length === 0) {
+    div.innerHTML = "<p>No matching jobs found</p>";
+    return;
+  }
+
+  jobs.forEach(job => {
+    div.innerHTML += `
+      <div class="job">
+        <h4>${job.title}</h4>
+        <div class="company">${job.company}</div>
+        <div class="match">Match: ${job.score}%</div>
+
+        <a href="${job.link}" target="_blank">
+          <button class="apply-btn">Apply Now</button>
+        </a>
+
+      </div>
+    `;
+  });
+}
+  jobs.forEach(job => {
+    div.innerHTML += `
+      <div class="job">
+        <h4>${job.title}</h4>
+        <div class="company">${job.company}</div>
+        <div class="match">Match: ${job.score}%</div>
+        <button class="apply-btn">Apply (Demo)</button>
+      </div>
+    `;
+  });
+
+
+// File + Text handler
+function processResume() {
+  const fileInput = document.getElementById("fileInput");
+  const textArea = document.getElementById("resumeText");
+
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+
+    if (file.type !== "text/plain") {
+      alert("Please upload only .txt file");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      runPipeline(e.target.result);
+    };
+
+    reader.onerror = function() {
+      alert("Error reading file");
+    };
+
+    reader.readAsText(file);
+
+  } else {
+    runPipeline(textArea.value);
+  }
+}
+
+// Main pipeline
+function runPipeline(text) {
+  if (!text || text.trim() === "") {
+    alert("Please upload or paste resume");
+    return;
+  }
+
+  const skills = extractSkills(text);
+  displaySkills(skills);
+
+  const jobs = matchJobs(skills);
+  displayJobs(jobs);
+}
+
+</script>
+</body>
+</html> 
